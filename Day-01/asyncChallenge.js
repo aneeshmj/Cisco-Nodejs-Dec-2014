@@ -22,6 +22,16 @@ function f3(next){
    },3000);
 }
 
-var fns = [f1,f2,f3]
-for(var i=0;i<fns.length;i++)
-	fns[i]();
+
+function inSequence(arr) {
+    var icr = 0;
+    var callBack = function() {
+        icr++;
+        if (typeof arr[icr] === "function") {
+            arr[icr](callBack);
+        }
+    }
+    arr[0](callBack);
+}
+
+inSequence([f1, f2, f3]);
